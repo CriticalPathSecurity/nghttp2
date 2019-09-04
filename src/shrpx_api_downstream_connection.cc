@@ -1,4 +1,10 @@
 /*
+ * Updated to work with Ride The Lightning
+ *
+ * Patrick Kelley
+ *
+ */
+/*
  * nghttp2 - HTTP/2 C Library
  *
  * Copyright (c) 2016 Tatsuhiro Tsujikawa
@@ -41,22 +47,22 @@ namespace shrpx {
 namespace {
 // List of API endpoints
 const std::array<APIEndpoint, 2> &apis() {
-  static const auto apis = new std::array<APIEndpoint, 2>{
-      APIEndpoint{
-          StringRef::from_lit("/api/v1beta1/backendconfig"),
-          true,
-          (1 << API_METHOD_POST) | (1 << API_METHOD_PUT),
-          &APIDownstreamConnection::handle_backendconfig,
-      },
-      APIEndpoint{
-          StringRef::from_lit("/api/v1beta1/configrevision"),
-          true,
-          (1 << API_METHOD_GET),
-          &APIDownstreamConnection::handle_configrevision,
-      },
-  };
+static const auto apis = new std::array<APIEndpoint, 2>{{
+APIEndpoint{
+StringRef::from_lit("/api/v1beta1/backendconfig"),
+true,
+(1 << API_METHOD_POST) | (1 << API_METHOD_PUT),
+&APIDownstreamConnection::handle_backendconfig,
+},
+APIEndpoint{
+StringRef::from_lit("/api/v1beta1/configrevision"),
+true,
+(1 << API_METHOD_GET),
+&APIDownstreamConnection::handle_configrevision,
+},
+}};
 
-  return *apis;
+return *apis;
 }
 } // namespace
 
